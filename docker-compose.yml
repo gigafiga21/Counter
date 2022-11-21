@@ -22,3 +22,14 @@ services:
       - COUNTER_DB_USER=${COUNTER_DB_USER}
       - COUNTER_DB_PASSWORD=${COUNTER_DB_PASSWORD}
 
+  counter-database:
+    build: Services/CounterDataBase
+    command: --init-file /home/build.sql
+    ports:
+      - ${COUNTER_DB_PORT}:3306
+    volumes:
+      - ./Services/CounterDataBase/Build:/var/lib/mysql
+    environment:
+      # - MYSQL_USER=${COUNTER_DB_USER}
+      - MYSQL_ROOT_PASSWORD=${COUNTER_DB_PASSWORD}
+
