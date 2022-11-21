@@ -1,0 +1,35 @@
+version: "3"
+
+networks:
+  counter:
+    driver: bridge
+
+services:
+
+  backend:
+    depends_on:
+      - counter-database
+    build: Services/Backend
+    command: Source/index.js
+    links:
+      - counter-database
+    ports:
+      - ${BACKEND_PORT}:3000
+    environment:
+      - PORT=${BACKEND_PORT}
+      - COUNTER_DB_HOST=counter-database
+      - COUNTER_DB_PORT=${COUNTER_DB_PORT}
+      - COUNTER_DB_USER=${COUNTER_DB_USER}
+      - COUNTER_DB_PASSWORD=${COUNTER_DB_PASSWORD}
+
+  counter-database:
+    build: Services/CounterDataBase
+    command: --init-file /home/build.sql
+    ports:
+      - ${COUNTER_DB_PORT}:3306
+    volumes:
+      - ./Services/CounterDataBase/Build:/var/lib/mysql
+    environment:
+      # - MYSQL_USER=${COUNTER_DB_USER}
+      - MYSQL_ROOT_PASSWORD=${COUNTER_DB_PASSWORD}
+

@@ -7,9 +7,6 @@ Example app for testing how Docker work. Listens on 3000 port.
 - `/about/` _- shows info container's hostname_
 
 ## Installation and running
-Run following script to start app from repository:
-```sh
-docker build -t gigafiga21/counter .
-docker run -p 3000:3000 gigafiga21/counter
-```
+1. Copy `.env-template` file to `.env` and fill variables according to comments
+2. Run `docker-compose up --build`
 
