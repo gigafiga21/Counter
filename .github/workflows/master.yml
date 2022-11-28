@@ -1,0 +1,38 @@
+name: Production
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+
+  backend-check:
+    name: Checking Backend service
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Setting up
+      uses: gigafiga21/Counter/.github/actions/backend-setup@master
+    
+    - name: Linting
+      uses: gigafiga21/Counter/.github/actions/backend-lint@master 
+
+  deploy:
+    name: Deploying to production
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Setting up SSH
+      uses: gigafiga21/Counter/.github/actions/ssh@master
+      with:
+        sshKey: ${{ secrets.SSH_KEY }}
+        sshKeyPublic: ${{ secrets.SSH_KEY_PUBLIC }}
+        hostSshKeyPublic: ${{ secrets.PROD_SSH_KEY_PUBLIC }}
+        hostAddress: ${{ secrets.PROD_URL }}
+
+    - name: Deploying
+      uses: gigafiga21/Counter/.github/actions/deploy@master
+      with:
+        hostAddress: ${{ secrets.PROD_URL }}
+        hostUser: root
+

@@ -1,0 +1,13 @@
+name: Setup Backend
+description: Sets up dev enviroment for Backend service
+
+runs:
+  using: composite
+  steps:
+
+  - name: Linting
+    shell: bash
+    run: |
+      cd ./Services/Backend
+      npm run lint
+
