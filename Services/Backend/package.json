@@ -4,12 +4,17 @@
   "description": "",
   "main": "./Source/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint --config ./Infra/ESLint/eslint.config.json"
   },
   "author": "gigafiga21",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
     "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.5",
+    "@babel/eslint-parser": "^7.19.1",
+    "eslint": "^8.28.0"
   }
 }
