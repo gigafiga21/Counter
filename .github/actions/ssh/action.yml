@@ -1,0 +1,31 @@
+name: Initialize SSH
+description: Installs SSH keys and known hosts
+
+inputs:
+  hostAddress:
+    description: IP or domain of the host to connect
+    required: true
+  hostSshKeyPublic:
+    description: public SSH key of the host to connect
+    required: true
+  sshKey:
+    description: private SSH key
+    required: true
+  sshKeyPublic:
+    description: public SSH key
+    required: true
+
+runs:
+  using: composite
+  steps:
+
+  - name: Initializing SSH
+    shell: bash
+    run: |
+      mkdir -p ~/.ssh/
+      echo "${{ inputs.sshKey }}" > ~/.ssh/id_rsa
+      echo "${{ inputs.sshKeyPublic }}" > ~/.ssh/id_rsa.pub
+      sudo chmod 600 ~/.ssh/id_rsa
+      sudo chmod 644 ~/.ssh/id_rsa.pub
+      echo "${{ inputs.hostSshKeyPublic }} ${{ inputs.hostAddress }}" > ~/.ssh/known_hosts
+

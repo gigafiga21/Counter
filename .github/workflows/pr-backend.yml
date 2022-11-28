@@ -1,0 +1,17 @@
+name: Backend service
+on:
+  pull_request:
+
+jobs:
+
+  review-app:
+    name: Review app
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Setting up
+      uses: gigafiga21/Counter/.github/actions/backend-setup@master
+
+    - name: Linting
+      uses: gigafiga21/Counter/.github/actions/backend-lint@master 
+

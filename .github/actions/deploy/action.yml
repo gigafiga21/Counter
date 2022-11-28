@@ -1,0 +1,19 @@
+name: Deploy all services
+description: Deploys all services via SSH
+
+inputs:
+  hostAddress:
+    description: host IP or domain where SSH commands will be performed
+  hostUser:
+    description: user on the host under which SSH commands will be performed
+    required: true
+
+runs:
+  using: composite
+  steps:
+
+  - name: Deploying
+    shell: bash
+    run: |
+      ssh -tt "${{ inputs.hostAddress }}@${{ inputs.hostUser }}" "cd /apps/Counter && git pull && docker-compose up -d --build"
+

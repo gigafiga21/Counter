@@ -1,0 +1,21 @@
+name: Setup Backend
+description: Sets up dev enviroment for Backend service
+
+runs:
+  using: composite
+  steps:
+
+  - name: Cloning repo
+    uses: actions/checkout@v3
+
+  - name: Installing NodeJS
+    uses: actions/setup-node@v3
+    with:
+      node-version: 16
+
+  - name: Installing packages
+    shell: bash
+    run: |
+      cd ./Services/Backend/
+      npm ci
+
