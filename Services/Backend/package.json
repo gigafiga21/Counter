@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "./Source/index.js",
+  "type": "browser",
   "scripts": {
     "lint": "eslint --config ./Infra/ESLint/eslint.config.json"
   },
